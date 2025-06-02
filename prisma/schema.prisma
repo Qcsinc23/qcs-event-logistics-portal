@@ -1,0 +1,118 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider        = "prisma-client-js"
+  output          = "../src/generated/prisma"
+  previewFeatures = ["postgresqlExtensions"] // Useful for Vercel Postgres
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("POSTGRES_PRISMA_URL") // For Prisma Accelerate (pooled)
+  // directUrl = env("POSTGRES_URL_NON_POOLING") // For migrations - commented out temporarily
+}
+
+// Core Models based on PLANNING.MD
+
+// For Clerk User Synchronization and additional app-specific user data
+model QCSUserProfile {
+  id          String    @id @default(cuid()) // Corresponds to Clerk User ID
+  email       String    @unique
+  firstName   String?
+  lastName    String?
+  imageUrl    String?
+  role        UserRole  @default(CLIENT) // 'CLIENT' or 'ADMIN'
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  clientCompany ClientCompany? // If user is a client, link to their company
+}
+
+enum UserRole {
+  CLIENT
+  ADMIN
+}
+
+// Represents QCS's client companies (e.g., event management companies)
+model ClientCompany {
+  id            String    @id @default(cuid())
+  name          String
+  qcsUserProfileId String   @unique // Link to the primary QCSUserProfile (owner/admin of this client company)
+  userProfile   QCSUserProfile @relation(fields: [qcsUserProfileId], references: [id])
+  endCustomers  EndCustomer[]
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+// Represents the end-customers of QCS's clients
+model EndCustomer {
+  id              String    @id @default(cuid())
+  name            String
+  email           String?   @unique
+  phone           String?
+  address         String?
+  clientCompanyId String
+  clientCompany   ClientCompany @relation(fields: [clientCompanyId], references: [id])
+  rateCardId      String?   // Each end-customer can be linked to a specific rate card
+  rateCard        RateCard? @relation(fields: [rateCardId], references: [id])
+  billingVisibility Boolean @default(true) // Controlled by QCS Admin per end-customer
+  orders          Order[]
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+}
+
+// Represents a logistics order/job
+model Order {
+  id            String      @id @default(cuid())
+  orderNumber   String      @unique // QCS specific order number
+  detrackJobId  String?     @unique // ID from Detrack system
+  status        OrderStatus @default(PENDING)
+  pickupAddress String
+  deliveryAddress String
+  pickupDateTime DateTime?
+  deliveryDateTime DateTime?
+  notes         String?
+  endCustomerId String
+  endCustomer   EndCustomer @relation(fields: [endCustomerId], references: [id])
+  orderItems    OrderItem[]
+  totalCharge   Float?      // Calculated total charge for the order
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+}
+
+enum OrderStatus {
+  PENDING
+  CONFIRMED
+  IN_TRANSIT
+  DELIVERED
+  CANCELLED
+  PROBLEM
+}
+
+// Represents items within an order
+model OrderItem {
+  id          String  @id @default(cuid())
+  description String
+  quantity    Int
+  weight      Float?
+  dimensions  String? // e.g., "LxWxH"
+  orderId     String
+  order       Order   @relation(fields: [orderId], references: [id])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// Represents rate cards for pricing
+model RateCard {
+  id            String    @id @default(cuid())
+  name          String    @unique
+  description   String?
+  rates         Json?     // Flexible structure for different rate types, e.g., per km, per item, fixed
+  endCustomers  EndCustomer[]
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  // Example for rates Json: { "baseRate": 50, "perKm": 2.5, "perItem": 1 }
+}
