@@ -1,4 +1,4 @@
-import { clerkMiddleware, createRouteMatcher, auth as getAuth } from '@clerk/nextjs/server';
+import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server';
 import { NextResponse } from 'next/server';
 
 // Define public routes that should not be protected by authentication
@@ -27,18 +27,12 @@ export default clerkMiddleware(async (auth, request) => { // auth is the auth ob
   //   });
   // }
 
-  // Example: Redirect authenticated users from public auth pages to dashboard
-  const { userId } = await getAuth(); // Await the imported getAuth() to retrieve userId
-  const { pathname } = request.nextUrl;
+  // }
 
-  if (userId) {
-    // If the user is signed in and tries to access sign-in or sign-up pages
-    if (pathname.startsWith('/sign-in') || pathname.startsWith('/sign-up')) {
-      const dashboardUrl = new URL('/dashboard', request.url); // Adjust to your main portal page
-      return NextResponse.redirect(dashboardUrl);
-    }
-  }
+  // Redirect logic based on userId has been moved to client-side components 
+  // on /sign-in and /sign-up pages to avoid middleware type complexities.
 
+  // If auth.protect() did not throw/redirect, or if it's a public route, continue.
   return NextResponse.next();
 });
 
