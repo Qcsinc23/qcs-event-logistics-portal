@@ -1,0 +1,16 @@
+services:
+  postgres:
+    image: postgres:15 # Using PostgreSQL version 15
+    container_name: qcs_logistics_postgres_dev
+    restart: always
+    environment:
+      POSTGRES_USER: qcsadmin
+      POSTGRES_PASSWORD: qcspassword 
+      POSTGRES_DB: qcs_logistics_dev
+    ports:
+      - "5433:5432" # Exposes Postgres on host port 5433 to avoid conflict if 5432 is in use
+    volumes:
+      - postgres_data:/var/lib/postgresql/data # Persists data
+
+volumes:
+  postgres_data:
