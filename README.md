@@ -14,11 +14,31 @@ This is the official repository for the Quiet Craft Solutions Inc. (QCS) Event L
     *   Admin panel for QCS staff (rate cards, user management, billing control).
 *   **Tech Stack:** Next.js (App Router), TypeScript, Tailwind CSS, Prisma, PostgreSQL, Clerk, Detrack API, Sentry, Resend.
 
+## Detrack API Integration Strategy
+
+The QCS Portal integrates with the Detrack V2 API to provide clients and staff with a seamless experience for managing logistics orders. The strategy focuses on leveraging Detrack as the operational backbone for job execution, real-time tracking, and Proof of Delivery (POD), while the QCS Portal serves as a user-friendly, branded interface that adds QCS-specific context and workflows.
+
+*   **Job Creation:** Orders created in the QCS Portal are submitted to Detrack via `POST /dn/jobs`. The QCS system stores its own order details and the `detrackJobId` returned by Detrack.
+*   **Job Viewing & Tracking:**
+    *   Order lists in the QCS Portal will display QCS order data combined with live, high-level status and ETA information fetched from Detrack's `GET /dn/jobs` endpoint (using filters).
+    *   Detailed order views will use Detrack's `GET /dn/jobs/{do_number}` (or `/dn/jobs/show`) to display comprehensive real-time information, including detailed status, tracking history (milestones), item specifics, live ETA, and direct links/embeds for POD media (signatures, photos) from Detrack's `signature_file_url` and `photo_X_file_url` attributes.
+    *   A powerful search capability will be provided using Detrack's `POST /dn/jobs/search` endpoint.
+*   **Job Modifications & Actions:** Updates, cancellations, or reattempts initiated through the QCS Portal will be proxied to the relevant Detrack API endpoints (e.g., `PUT /dn/jobs/{do_number}`, `DELETE /dn/jobs/{do_number}`, `POST /dn/jobs/reattempt`).
+*   **Document Downloads:** The portal will allow users to download PODs and shipping labels for individual jobs using Detrack's `GET /dn/jobs/export/{do_number}` endpoint. Batch export functionality (`POST /dn/jobs/bulk/export`) may be available for admins.
+*   **Webhook Utilization:** Detrack webhooks will be fully implemented to receive real-time updates on job status changes and POD captures. These webhooks will trigger updates to the high-level status in the QCS database and can initiate QCS-specific notifications.
+*   **Data Management:**
+    *   The QCS database (Prisma) will store QCS-specific order information, client/end-customer relationships, the `detrackJobId`, and a synchronized high-level job status.
+    *   Detrack will remain the source of truth for all detailed, real-time operational data, which will be fetched on demand by the QCS Portal. This minimizes data redundancy and ensures accuracy.
+*   **User Experience:** The QCS Portal will offer tailored views for clients (simplified, focusing on key information and POD) and staff (potentially more comprehensive data and actions).
+
+This integration strategy aims to provide a robust, efficient, and user-friendly experience by combining the strengths of the QCS Portal with the specialized logistics capabilities of Detrack.
+
 For detailed project information, please refer to:
-*   `../OneDrive/Desktop/# PLANNING.MD`: High-level project plan, vision, and architecture.
-*   `../OneDrive/Desktop/# TASK.MD`: Detailed task breakdown and progress.
-*   `../OneDrive/Desktop/# CONTEXT.MD`: Global development rules and coding guidelines.
-*   `../OneDrive/Desktop/# DEPLOYMENT.MD`: Deployment strategy and Vercel/GitHub workflow.
+*   `docs/project-planning/PLANNING.md`: High-level project plan, vision, and architecture.
+*   `docs/project-planning/TASK.MD`: Detailed task breakdown and progress.
+*   `docs/project-planning/CONTEXT.MD`: Global development rules and coding guidelines.
+*   `docs/project-planning/DEPLOYMENT.MD`: Deployment strategy and Vercel/GitHub workflow.
+*   `docs/integrations/detrack/API_Detrack_V2.md`: Detrack API V2 documentation details.
 
 ## Getting Started
 
@@ -47,7 +67,7 @@ For detailed project information, please refer to:
     *   `DETRACK_WEBHOOK_SECRET` (if testing webhooks locally)
     *   `NEXT_PUBLIC_APP_URL` (usually `http://localhost:3000` for local development)
 
-    Refer to `../OneDrive/Desktop/# DEPLOYMENT.MD` for more details on environment variables.
+    Refer to `docs/project-planning/DEPLOYMENT.MD` for more details on environment variables.
 
 ### Local PostgreSQL with Docker (Optional)
 
@@ -121,7 +141,7 @@ Testing is a critical part of this project. Vitest will be used for unit and int
     # or
     npm run test:watch
     ```
-*   Refer to `../OneDrive/Desktop/# PLANNING.MD` (Section 7: Testing Strategy) and `../OneDrive/Desktop/# CONTEXT.MD` (Rule 2: Test After Every Feature) for detailed testing guidelines.
+*   Refer to `docs/project-planning/PLANNING.MD` (Section 7: Testing Strategy) and `docs/project-planning/CONTEXT.MD` (Rule 2: Test After Every Feature) for detailed testing guidelines.
 
 ## Deployment
 
@@ -129,14 +149,14 @@ This project is configured for deployment on Vercel.
 
 *   Pushes to feature branches and Pull Requests will generate Preview Deployments.
 *   Merges to the `main` branch will trigger Production Deployments.
-*   Refer to `../OneDrive/Desktop/# DEPLOYMENT.MD` for complete deployment details.
+*   Refer to `docs/project-planning/DEPLOYMENT.MD` for complete deployment details.
 
 ## Contributing
 
 Please adhere to the guidelines outlined in:
-*   `../OneDrive/Desktop/# CONTEXT.MD` (Global Development Rules)
+*   `docs/project-planning/CONTEXT.MD` (Global Development Rules)
 *   Conventional Commits for all Git messages.
-*   The branching strategy defined in `../OneDrive/Desktop/# DEPLOYMENT.MD`.
+*   The branching strategy defined in `docs/project-planning/DEPLOYMENT.MD`.
 
 ---
 

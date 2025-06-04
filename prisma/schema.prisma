@@ -20,7 +20,7 @@ datasource db {
 
 // For Clerk User Synchronization and additional app-specific user data
 model QCSUserProfile {
-  id          String    @id @default(cuid()) // Corresponds to Clerk User ID
+  id          String    @id // Corresponds to Clerk User ID - CUID removed as ID comes from Clerk
   email       String    @unique
   firstName   String?
   lastName    String?

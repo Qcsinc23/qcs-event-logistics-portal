@@ -8,6 +8,7 @@ import {
   SignedOut,
   UserButton
 } from '@clerk/nextjs';
+import Link from 'next/link'; // Added Link import
 import "./globals.css";
 
 const geistSans = Geist({
@@ -31,16 +32,23 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider>
-      <html lang="en">
+    <html lang="en">
+        <head>
+          {/* Added Google Fonts and Font Awesome from user's _app.js example */}
+          <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Montserrat:wght@600;700&display=swap" rel="stylesheet" />
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+        </head>
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen`}
+          // Note: The new globals.css sets font-family to var(--font-body) which is Roboto.
+          // The geistSans and geistMono variables are still available if needed for specific sections.
         >
+          <ClerkProvider>
           <header className="bg-gray-800 text-white p-4 shadow-md">
             <nav className="container mx-auto flex justify-between items-center">
-              <a href="/" className="text-xl font-bold hover:text-gray-300">
+              <Link href="/" className="text-xl font-bold hover:text-gray-300">
                 QCS Logistics
-              </a>
+              </Link>
               <div className="space-x-4">
                 <SignedOut>
                   <SignInButton mode="modal">
@@ -52,7 +60,7 @@ export default function RootLayout({
                 </SignedOut>
                 <SignedIn>
                   <UserButton afterSignOutUrl="/" />
-                  <a href="/dashboard" className="hover:text-gray-300">Dashboard</a>
+                  <Link href="/dashboard" className="hover:text-gray-300">Dashboard</Link>
                   {/* Add other portal links here if needed */}
                 </SignedIn>
               </div>
@@ -64,8 +72,8 @@ export default function RootLayout({
           <footer className="bg-gray-100 text-center p-4 text-sm text-gray-600">
             &copy; {new Date().getFullYear()} Quiet Craft Solutions Inc. All rights reserved.
           </footer>
+          </ClerkProvider>
         </body>
       </html>
-    </ClerkProvider>
   );
 }
