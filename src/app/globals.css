@@ -25,6 +25,7 @@ body {
     background-color: theme('colors.neutral-light-gray');
 }
 
+/*
 .container {
     width: 90%;
     max-width: 1200px;
@@ -83,7 +84,7 @@ h1, h2, h3, h4, h5, h6 {
     text-decoration: none;
 }
 
-/* Header & Navigation */
+/ Header & Navigation /
 .main-header {
     background-color: #fff;
     padding: 15px 0;
@@ -99,7 +100,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 .logo {
     font-family: var(--font-heading);
-    font-size: 1.6rem; /* Adjusted for longer name */
+    font-size: 1.6rem; / Adjusted for longer name /
     font-weight: 700;
     color: var(--primary-color);
 }
@@ -117,7 +118,7 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: 500;
     font-size: 0.95rem;
 }
-.main-nav ul li a:hover, .main-nav ul li a.active { /* 'active' class needs to be handled by Next.js router if desired */
+.main-nav ul li a:hover, .main-nav ul li a.active { / 'active' class needs to be handled by Next.js router if desired /
     color: var(--primary-color);
     text-decoration: none;
 }
@@ -126,17 +127,17 @@ h1, h2, h3, h4, h5, h6 {
     padding: 10px 20px;
 }
 
-/* Hero Section */
+/ Hero Section /
 .hero {
-    /* IF USING A LOCAL IMAGE, PLACE IN public/images/hero-bg.jpg */
-    /* background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('/images/hero-bg.jpg') no-repeat center center/cover; */
+    / IF USING A LOCAL IMAGE, PLACE IN public/images/hero-bg.jpg /
+    / background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('/images/hero-bg.jpg') no-repeat center center/cover; /
     background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://via.placeholder.com/1920x800.png?text=Dynamic+Event+Logistics+Background+QCS') no-repeat center center/cover;
     color: #fff;
     padding: 100px 0;
     text-align: center;
 }
 .hero h1 {
-    font-size: 2.8rem; /* Slightly smaller for potentially longer titles */
+    font-size: 2.8rem; / Slightly smaller for potentially longer titles /
     margin-bottom: 20px;
     font-weight: 700;
 }
@@ -148,7 +149,7 @@ h1, h2, h3, h4, h5, h6 {
     margin-right: auto;
 }
 
-/* Intro Section */
+/ Intro Section /
 .intro-section {
     padding: 60px 0;
     text-align: center;
@@ -167,7 +168,7 @@ h1, h2, h3, h4, h5, h6 {
     margin: 0 auto 30px auto;
 }
 
-/* Key Characteristics Section */
+/ Key Characteristics Section /
 .key-characteristics {
     padding: 60px 0;
     background-color: var(--light-color);
@@ -204,7 +205,7 @@ h1, h2, h3, h4, h5, h6 {
     color: var(--grey-color);
 }
 
-/* How It Works Section */
+/ How It Works Section /
 .how-it-works {
     padding: 60px 0;
 }
@@ -218,7 +219,7 @@ h1, h2, h3, h4, h5, h6 {
     justify-content: space-around;
     align-items: flex-start;
     gap: 30px;
-    flex-wrap: wrap; /* For smaller screens */
+    flex-wrap: wrap; / For smaller screens /
 }
 .step-item {
     text-align: center;
@@ -246,17 +247,17 @@ h1, h2, h3, h4, h5, h6 {
     color: var(--grey-color);
 }
 
-/* Services Detail Section */
+/ Services Detail Section /
 .services-detail {
     padding: 60px 0;
-    background-color: var(--primary-color); 
-    color: #fff; 
+    background-color: var(--primary-color);
+    color: #fff;
 }
 .services-detail h2 {
     text-align: center;
     margin-bottom: 50px;
     font-size: 2.5rem;
-    color: #fff; 
+    color: #fff;
 }
 .services-grid {
     display: grid;
@@ -264,20 +265,20 @@ h1, h2, h3, h4, h5, h6 {
     gap: 25px;
 }
 .service-card {
-    background: rgba(255,255,255,0.1); 
+    background: rgba(255,255,255,0.1);
     padding: 25px;
     border-radius: 8px;
 }
 .service-card h3 {
     font-size: 1.2rem;
     margin-bottom: 10px;
-    color: #fff; 
+    color: #fff;
 }
 .service-card p {
     font-size: 0.9rem;
 }
 
-/* CTA Section */
+/ CTA Section /
 .cta-section {
     padding: 60px 0;
     background-color: var(--secondary-color);
@@ -294,7 +295,7 @@ h1, h2, h3, h4, h5, h6 {
     color: var(--dark-color);
 }
 
-/* Testimonials Section */
+/ Testimonials Section /
 .testimonials {
     padding: 60px 0;
     background-color: var(--light-color);
@@ -304,19 +305,19 @@ h1, h2, h3, h4, h5, h6 {
     margin-bottom: 50px;
     font-size: 2.5rem;
 }
-.testimonial-slider { /* Conceptual: you'd need JS for a slider */
+.testimonial-slider { / Conceptual: you'd need JS for a slider /
     display: flex;
     gap: 30px;
-    overflow-x: auto; /* Basic horizontal scroll for now */
-    padding-bottom: 15px; /* Space for scrollbar */
+    overflow-x: auto; / Basic horizontal scroll for now /
+    padding-bottom: 15px; / Space for scrollbar /
 }
 .testimonial-item {
     background-color: #fff;
     padding: 30px;
     border-radius: 8px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-    min-width: 300px; /* For horizontal scroll */
-    flex-shrink: 0; /* Prevent shrinking for horizontal scroll */
+    min-width: 300px; / For horizontal scroll /
+    flex-shrink: 0; / Prevent shrinking for horizontal scroll /
 }
 .testimonial-item blockquote {
     font-style: italic;
@@ -334,7 +335,7 @@ h1, h2, h3, h4, h5, h6 {
     color: var(--grey-color);
 }
 
-/* Footer */
+/ Footer /
 .main-footer {
     background-color: var(--dark-color);
     color: #ccc;
@@ -380,34 +381,34 @@ h1, h2, h3, h4, h5, h6 {
     border-top: 1px solid #444;
 }
 
-/* Responsive Adjustments */
-@media (max-width: 992px) { /* Adjusted breakpoint for better nav wrapping */
+/ Responsive Adjustments /
+@media (max-width: 992px) { / Adjusted breakpoint for better nav wrapping /
     .main-header .container { flex-direction: column; align-items: flex-start; }
     .main-nav { width: 100%; }
-    .main-nav ul { 
-        flex-direction: column; 
-        margin-top: 15px; 
+    .main-nav ul {
+        flex-direction: column;
+        margin-top: 15px;
         width: 100%;
     }
-    .main-nav ul li { 
-        margin: 8px 0; 
-        text-align: left; /* Or center if you prefer */
+    .main-nav ul li {
+        margin: 8px 0;
+        text-align: left; / Or center if you prefer /
         margin-left: 0;
         width: 100%;
         padding: 5px 0;
     }
     .main-nav ul li a {
-        display: block; /* Make link take full width */
+        display: block; / Make link take full width /
     }
     .header-cta { margin-top: 15px; align-self: flex-start; }
 }
 
 
 @media (max-width: 768px) {
-    /* .main-header .container { flex-direction: column; } */ /* Already handled above */
-    /* .main-nav ul { flex-direction: column; margin-top: 15px; } */
-    /* .main-nav ul li { margin: 5px 0; text-align: center; } */
-    /* .header-cta { margin-top: 15px; } */
+    / .main-header .container { flex-direction: column; } / / Already handled above /
+    / .main-nav ul { flex-direction: column; margin-top: 15px; } /
+    / .main-nav ul li { margin: 5px 0; text-align: center; } /
+    / .header-cta { margin-top: 15px; } /
 
     .hero h1 { font-size: 2.2rem; }
     .hero p { font-size: 1rem; }
@@ -417,36 +418,38 @@ h1, h2, h3, h4, h5, h6 {
     .step-item { margin-bottom: 30px; }
     .services-grid { grid-template-columns: 1fr; }
     .footer-content { grid-template-columns: 1fr; text-align: center; }
-    .footer-column p, .footer-column ul {text-align: center;} /* Center text in footer columns */
+    .footer-column p, .footer-column ul {text-align: center;} / Center text in footer columns /
     .social-links { text-align: center; margin-top: 15px; }
 }
+*/
 
 /* Existing Tailwind theme and dark mode styles from original globals.css */
 /* These might need adjustment if they conflict with the new CSS variables above */
 /* Or, the new CSS variables could be integrated into Tailwind's theme config */
+/*
 @theme inline {
-  --color-background: var(--background); /* This var(--background) will now be #fff by default from above */
-  --color-foreground: var(--foreground); /* This var(--foreground) will now be #333 by default from above */
-  --font-sans: var(--font-geist-sans); /* This is from the original RootLayout */
-  --font-mono: var(--font-geist-mono); /* This is from the original RootLayout */
+  --color-background: var(--background); / This var(--background) will now be #fff by default from above /
+  --color-foreground: var(--foreground); / This var(--foreground) will now be #333 by default from above /
+  --font-sans: var(--font-geist-sans); / This is from the original RootLayout /
+  --font-mono: var(--font-geist-mono); / This is from the original RootLayout /
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    /* These will override the default :root if dark mode is active */
-    /* Consider if these should align with the new --dark-color, --light-color etc. */
-    --background: #0a0a0a; 
+    / These will override the default :root if dark mode is active /
+    / Consider if these should align with the new --dark-color, --light-color etc. /
+    --background: #0a0a0a;
     --foreground: #ededed;
   }
-  /* If the new landing page styles should also adapt to dark mode, 
+  / If the new landing page styles should also adapt to dark mode,
      you might need to add dark mode variants for them using the new CSS variables,
      or integrate the new color scheme into Tailwind's dark mode configuration.
      For example, if .hero should have a different background in dark mode:
-     body.dark .hero { background: var(--dark-color); } 
+     body.dark .hero { background: var(--dark-color); }
      Or using Tailwind's dark: prefix if variables are in tailwind.config.js
-  */
+  /
 }
-
+*/
 /* The original body style is mostly covered by the new html, body style above.
    The font-family is now var(--font-body) which is Roboto.
    The color and background are also set.
