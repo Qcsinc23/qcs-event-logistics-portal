@@ -19,7 +19,18 @@ type ButtonProps = AnchorProps | BtnProps;
 
 const Button: React.FC<ButtonProps> = (props) => {
   const { variant = 'primary', className = '', children } = props;
-  const buttonClasses = `${styles.button} ${styles[variant]} ${className}`.trim();
+  
+  // DEBUG: Log styles object and generated classes
+  if (typeof window !== 'undefined') { // Ensure console.log only runs client-side for this component
+    console.log('[Button.tsx] styles object:', styles);
+    console.log(`[Button.tsx] For variant: ${variant}, passed className: ${className}`);
+    console.log('[Button.tsx] styles[variant]:', styles[variant]);
+  }
+  
+  const buttonClasses = `${styles.button} ${styles[variant] || ''} ${className}`.trim();
+  if (typeof window !== 'undefined') {
+    console.log('[Button.tsx] final buttonClasses:', buttonClasses);
+  }
 
   if (props.href) {
     // Destructure props specific to Link/anchor, excluding button-specific ones
