@@ -1,56 +1,70 @@
-"use client"; // Assuming client-side interactivity for nav, Link component
+"use client";
 
 import Link from 'next/link';
-// import { useRouter } from 'next/navigation'; // For active link styling if needed
+import Button from '../Button'; // Import the new Button component
+import styles from './Header.module.css'; // Import CSS Module
 
 interface HeaderProps {
-  companyName: string;
+  companyName: string; // This prop might become redundant if the name is hardcoded as per design
 }
 
 const Header: React.FC<HeaderProps> = ({ companyName }) => {
-  // const router = useRouter(); // For active link styling
-  // const isActive = (pathname: string) => router.pathname === pathname; // App router uses usePathname
+  // For mobile menu state, if implemented
+  // const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
-    <header className="w-full py-4 px-6 bg-neutral-white shadow-md font-inter">
-      <div className="container mx-auto flex justify-between items-center">
-        <Link href="/" passHref>
-          <span className="text-2xl font-semibold text-text-dark-gray">
-            Quiet Craft Solutions <span className="text-xl font-normal">Inc.</span>
+    <header className={styles.header}>
+      <div className={styles.container}>
+        <Link href="/" passHref className={styles.logoLink}>
+          <span className={styles.logoText}>
+            Quiet Craft Solutions <span className={styles.logoTextInc}>Inc.</span>
           </span>
         </Link>
-        <nav className="main-nav hidden md:block">
-          <ul className="flex space-x-8"> {/* Increased spacing to 32px (space-x-8) */}
-            <li><Link href="/#home" passHref><span className="text-base text-text-dark-gray hover:text-primary-action transition-colors duration-200">Home</span></Link></li>
-            <li><Link href="/#services" passHref><span className="text-base text-text-dark-gray hover:text-primary-action transition-colors duration-200">Services</span></Link></li>
-            <li><Link href="/#about" passHref><span className="text-base text-text-dark-gray hover:text-primary-action transition-colors duration-200">Why Us</span></Link></li>
-            <li><Link href="/#process" passHref><span className="text-base text-text-dark-gray hover:text-primary-action transition-colors duration-200">How It Works</span></Link></li>
-            <li><Link href="/#contact" passHref><span className="text-base text-text-dark-gray hover:text-primary-action transition-colors duration-200">Contact</span></Link></li>
+        
+        {/* Desktop Navigation */}
+        <nav className={styles.nav} aria-label="Main navigation">
+          <ul className={styles.navList}>
+            <li><Link href="/#home" className={styles.navLink}>Home</Link></li>
+            <li><Link href="/#services" className={styles.navLink}>Services</Link></li>
+            <li><Link href="/#about" className={styles.navLink}>Why Us</Link></li>
+            <li><Link href="/#process" className={styles.navLink}>How It Works</Link></li>
+            <li><Link href="/#contact" className={styles.navLink}>Contact</Link></li>
           </ul>
         </nav>
-        <div className="header-cta flex items-center space-x-4">
-          <Link href="/#quote" passHref>
-            <span className="px-6 py-3 rounded-md font-medium text-primary-action border border-primary-action bg-neutral-white hover:bg-neutral-light-gray hover:shadow-lg transition-all duration-200 text-base">Get a Quote</span>
-          </Link>
-          {/* "Sign In" and "Sign Up" buttons as per plan - assuming /sign-in and /sign-up routes exist or will be handled by Clerk */}
-          <Link href="/sign-in" passHref>
-            <span className="text-base text-primary-action hover:underline font-medium">Sign In</span>
-          </Link>
-          <Link href="/sign-up" passHref>
-            <span className="px-6 py-3 rounded-md font-medium text-primary-action border border-primary-action bg-neutral-white hover:bg-neutral-light-gray hover:shadow-lg transition-all duration-200 text-base">Sign Up</span>
-          </Link>
-           {/* Client Portal button - can be styled as primary or secondary based on final design preference */}
-          <Link href="/dashboard" passHref>
-            <span className="px-6 py-3 rounded-md font-medium text-text-white bg-primary-action hover:bg-opacity-90 hover:shadow-lg transition-all duration-200 text-base">Client Portal</span>
-          </Link>
+
+        <div className={styles.ctaContainer}>
+          <Button href="/#quote" variant="secondary">Get a Quote</Button>
+          {/* Assuming /sign-in and /sign-up are handled by Clerk or dedicated pages */}
+          <Button href="/sign-in" variant="textLink" className={styles.signInLink}>Sign In</Button>
+          <Button href="/sign-up" variant="secondary">Sign Up</Button>
+          <Button href="/dashboard" variant="primary">Client Portal</Button>
         </div>
-        {/* Mobile menu button (conceptual) - styling would need to be added */}
-        {/* <div className="md:hidden">
-          <button className="text-text-dark-gray focus:outline-none">
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
-          </button>
-        </div> */}
+
+        {/* Mobile Menu Button (conceptual) */}
+        {/*
+        <button
+          className={styles.mobileMenuButton}
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          aria-label="Open navigation menu"
+          aria-expanded={isMobileMenuOpen}
+        >
+          ICON_SVG_HERE
+        </button>
+        */}
       </div>
+      {/* Mobile Menu Panel (conceptual) */}
+      {/*
+      {isMobileMenuOpen && (
+        <div className={styles.mobileMenuPanel}>
+          <nav>
+            <ul className={styles.mobileNavList}>
+              <li><Link href="/#home" className={styles.navLink} onClick={() => setIsMobileMenuOpen(false)}>Home</Link></li>
+              ... other links
+            </ul>
+          </nav>
+        </div>
+      )}
+      */}
     </header>
   );
 };

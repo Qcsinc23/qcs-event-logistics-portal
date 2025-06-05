@@ -1,0 +1,39 @@
+.introSection {
+  padding: 4rem 0; /* 60px is py-16, using 4rem (64px) for consistency with other py-16 examples */
+  /* background-color: var(--neutral-background-white); /* Already default body bg, but can be explicit */
+  font-family: var(--font-inter, 'Inter', sans-serif);
+}
+
+.container {
+  max-width: 1140px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem; /* Consistent with global container padding if any */
+  padding-right: 1rem;
+  text-align: center; /* Center the heading */
+}
+
+.heading {
+  font-size: 1.875rem; /* 30px, text-3xl */
+  font-weight: 600; /* Inter SemiBold */
+  color: var(--text-color-dark-gray);
+  margin-bottom: 1rem; /* mb-4 */
+}
+
+.textBlock {
+  max-width: 760px; /* As per plan */
+  margin-left: auto;
+  margin-right: auto;
+  text-align: left; /* Paragraphs left-aligned */
+}
+
+.paragraph {
+  font-size: 1.125rem; /* 18px, text-lg */
+  color: var(--text-color-medium-gray);
+  line-height: 1.6; /* leading-relaxed */
+  margin-bottom: 1.5rem; /* mb-6 */
+}
+
+.paragraph:last-child {
+  margin-bottom: 0;
+}

@@ -1,0 +1,31 @@
+.card {
+  background-color: var(--neutral-background-white);
+  padding: 1.5rem; /* 24px */
+  border-radius: 8px; /* border-radius: 8px */
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  text-align: left; 
+  display: flex;
+  flex-direction: column;
+  /* Removed items-start as icon is now self-aligned or centered if needed */
+}
+
+.icon {
+  color: var(--primary-action-color);
+  margin-bottom: 1rem; /* 16px */
+  /* Icon size is passed as prop to IconComponent, e.g., size={32} */
+  /* To center icon if needed: align-self: center; */
+}
+
+.title {
+  font-size: 1.25rem; /* 20px */
+  font-weight: 600; /* Inter SemiBold */
+  color: var(--text-color-dark-gray);
+  margin-bottom: 0.5rem; /* 8px */
+}
+
+.description {
+  font-size: 0.9375rem; /* 15px */
+  color: var(--text-color-medium-gray);
+  line-height: 1.6;
+  flex-grow: 1; /* Allows description to take up space if cards are in a row and need equal height */
+}

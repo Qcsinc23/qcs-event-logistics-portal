@@ -1,0 +1,41 @@
+.benefitsSection {
+  padding: 4rem 0; /* py-16 */
+  background-color: var(--neutral-background-light-gray);
+  font-family: var(--font-inter, 'Inter', sans-serif);
+}
+
+.container {
+  max-width: 1140px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  text-align: center;
+}
+
+.sectionTitle {
+  font-size: 1.875rem; /* text-3xl / 30px */
+  font-weight: 600; /* Inter SemiBold */
+  color: var(--text-color-dark-gray);
+  margin-bottom: 3rem; /* mb-12 */
+}
+
+.cardsContainer {
+  display: grid;
+  /* grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); */ /* This is good for responsiveness */
+  grid-template-columns: repeat(3, 1fr); /* Forcing 3 columns on md and up */
+  gap: 1.5rem; /* 24px */
+}
+
+/* Responsive adjustments for cards container if needed */
+@media (max-width: 1024px) { /* lg breakpoint */
+  .cardsContainer {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Fallback to auto-fit */
+  }
+}
+
+@media (max-width: 768px) { /* md breakpoint */
+  .cardsContainer {
+    grid-template-columns: 1fr; /* Stack on smaller screens */
+  }
+}

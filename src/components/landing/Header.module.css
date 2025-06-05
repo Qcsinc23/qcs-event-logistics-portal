@@ -1,0 +1,93 @@
+.header {
+  width: 100%;
+  padding: 1rem 1.5rem; /* py-4 px-6 */
+  background-color: var(--neutral-background-white);
+  box-shadow: 0 2px 4px -1px rgba(0,0,0,0.06), 0 4px 5px 0 rgba(0,0,0,0.06), 0 1px 10px 0 rgba(0,0,0,0.08); /* shadow-md */
+  font-family: var(--font-inter, 'Inter', sans-serif);
+  position: sticky; /* Keep header at top */
+  top: 0;
+  z-index: 50; /* Ensure it's above other content */
+}
+
+.container {
+  max-width: 1140px; /* As per plan */
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logoLink {
+  text-decoration: none;
+}
+
+.logoText {
+  font-size: 1.5rem; /* 24px */
+  font-weight: 600; /* Inter SemiBold */
+  color: var(--text-color-dark-gray);
+}
+
+.logoTextInc {
+  font-size: 1.25rem; /* 20px, slightly smaller */
+  font-weight: 400; /* Inter Regular, lighter */
+}
+
+.nav {
+  /* hidden md:block equivalent handled by media query or by not rendering on mobile if a burger menu is used */
+}
+
+.navList {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  gap: 2rem; /* space-x-8 (32px) */
+}
+
+.navLink {
+  font-size: 1rem; /* 16px */
+  font-weight: 400; /* Inter Regular */
+  color: var(--text-color-dark-gray);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.navLink:hover {
+  color: var(--primary-action-color);
+}
+
+.ctaContainer {
+  display: flex;
+  align-items: center;
+  gap: 1rem; /* space-x-4 (16px) */
+}
+
+/* Specific class for Sign In link if more specific styling is needed than Button's textLink variant */
+.signInLink { 
+  /* Custom styles for sign-in if Button's textLink isn't enough */
+  /* For example, if it needs different margin than other buttons in this context */
+  margin-right: 0.5rem; /* Example: Add some specific margin */
+}
+
+/* Mobile Menu (Conceptual - for future implementation if needed) */
+.mobileMenuButton {
+  /* Styles for burger icon */
+  display: none; /* Hidden by default, shown in media query */
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+}
+
+@media (max-width: 768px) { /* md breakpoint */
+  .nav {
+    display: none; /* Hide desktop nav */
+  }
+  .mobileMenuButton {
+    display: block; /* Show burger icon */
+  }
+  .ctaContainer {
+    /* Adjust CTA for mobile if needed, e.g. stack them or hide some */
+  }
+}

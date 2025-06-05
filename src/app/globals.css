@@ -2,27 +2,34 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+/* Inter font is now handled by next/font in layout.tsx */
+/* @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap'); */
 
-/* Reset and Basic Styles from user input - Old variables, will be superseded by Tailwind theme */
-/*
 :root {
-    --primary-color: #007BFF; / Professional Blue /
-    --secondary-color: #FFC107; / Action Yellow/Orange /
-    --dark-color: #333;
-    --light-color: #f8f9fa;
-    --grey-color: #6c757d;
-    --success-color: #28a745;
-    --font-heading: 'Montserrat', sans-serif;
-    --font-body: 'Roboto', sans-serif;
-}
-*/
+  --primary-action-color: #00796B; /* Deep Teal */
+  --secondary-action-color: #FFC107; /* Warm Gold */
+  --neutral-background-light-gray: #F4F6F8;
+  --neutral-background-white: #FFFFFF;
+  --text-color-dark-gray: #333333;
+  --text-color-medium-gray: #555555;
+  --text-color-white: #FFFFFF;
+  --border-color-light-cool-gray: #D0DDE8;
 
-html,
+  /* Font family will be primarily set by next/font on the html tag */
+  /* --font-family-sans: 'Inter', sans-serif; /* Fallback if needed */
+}
+
+html {
+  /* next/font applies Inter via className here */
+}
+
 body {
-    @apply p-0 m-0 font-inter leading-relaxed; /* 1.6 line height is 'relaxed' in Tailwind */
-    color: theme('colors.text-dark-gray');
-    background-color: theme('colors.neutral-light-gray');
+    padding: 0;
+    margin: 0;
+    font-family: var(--font-inter, 'Inter', sans-serif); /* Use --font-inter from next/font, with fallback */
+    line-height: 1.6;
+    color: var(--text-color-dark-gray);
+    background-color: var(--neutral-background-light-gray);
 }
 
 /*

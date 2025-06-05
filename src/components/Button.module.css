@@ -1,0 +1,54 @@
+.button {
+  padding: 12px 24px;
+  border-radius: 6px;
+  font-weight: 500; /* Inter Medium */
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+  text-decoration: none; /* For Link usage */
+  display: inline-block;
+  border: 1px solid transparent;
+  line-height: 1; /* Ensure text is vertically centered if padding is symmetrical */
+}
+
+.button:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.primary {
+  background-color: var(--primary-action-color);
+  color: var(--text-color-white);
+  border-color: var(--primary-action-color); /* Ensure border matches for consistency */
+}
+
+.primary:hover {
+  /* Using a slightly darker shade for hover. Tailwind's color-mix equivalent: bg-primary-action/90 */
+  background-color: color-mix(in srgb, var(--primary-action-color) 90%, black);
+  border-color: color-mix(in srgb, var(--primary-action-color) 90%, black);
+}
+
+.secondary {
+  background-color: var(--neutral-background-white);
+  color: var(--primary-action-color);
+  border: 1px solid var(--primary-action-color);
+}
+
+.secondary:hover {
+  /* Using a very light shade of primary for hover. Tailwind's color-mix equivalent: bg-primary-action/10 */
+  background-color: color-mix(in srgb, var(--primary-action-color) 10%, var(--neutral-background-white) 90%);
+}
+
+.textLink {
+  background-color: transparent;
+  color: var(--primary-action-color);
+  padding: 0; /* Text links typically don't have padding */
+  border-radius: 0;
+  border: none;
+  font-weight: 500; /* Ensure consistent weight with other buttons */
+}
+
+.textLink:hover {
+  text-decoration: underline;
+  box-shadow: none; /* Text links usually don't have shadow */
+  background-color: transparent; /* Ensure no bg change on hover */
+}

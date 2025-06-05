@@ -1,0 +1,109 @@
+.footer {
+  background-color: var(--text-color-dark-gray); /* Dark Gray background */
+  color: var(--neutral-background-light-gray); /* Light Gray text */
+  padding: 3rem 0; /* py-12 */
+  font-family: var(--font-inter, 'Inter', sans-serif);
+}
+
+.container {
+  max-width: 1140px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.contentGrid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr); /* Mobile default: 1 column */
+  gap: 2rem; /* 32px */
+  margin-bottom: 2rem; /* mb-8 */
+}
+
+@media (min-width: 768px) { /* md breakpoint */
+  .contentGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) { /* lg breakpoint */
+  .contentGrid {
+    grid-template-columns: repeat(4, 1fr); /* 4 columns on larger screens */
+  }
+}
+
+.column {
+  /* No specific styles needed here if children handle their own */
+}
+
+.columnTitle {
+  font-size: 1.125rem; /* text-lg / 18px */
+  font-weight: 600; /* Inter SemiBold */
+  color: var(--neutral-background-white); /* White for titles */
+  margin-bottom: 1rem; /* mb-4 */
+}
+
+.companyDescription {
+  font-size: 0.875rem; /* 14px */
+  line-height: 1.6;
+}
+
+.quickLinksList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem; /* space-y-2 */
+}
+
+.quickLink {
+  color: var(--neutral-background-light-gray);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.quickLink:hover {
+  color: var(--secondary-action-color); /* Warm Gold on hover */
+}
+
+.contactInfo {
+  font-size: 0.875rem; /* 14px */
+  line-height: 1.6;
+}
+
+.contactLink {
+  color: var(--neutral-background-light-gray);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.contactLink:hover {
+  color: var(--secondary-action-color);
+}
+
+.socialLinksContainer {
+  display: flex;
+  gap: 1rem; /* space-x-4 */
+}
+
+.socialLink {
+  color: var(--neutral-background-light-gray);
+  text-decoration: none;
+  transition: color 0.2s ease;
+  font-size: 1.25rem; /* Example size for icons if using text/font icons */
+}
+
+.socialLink:hover {
+  color: var(--secondary-action-color);
+}
+
+.bottomBar {
+  text-align: center;
+  border-top: 1px solid #4A5568; /* border-gray-700 equivalent */
+  padding-top: 2rem; /* pt-8 */
+}
+
+.copyrightText {
+  font-size: 0.875rem; /* 14px */
+}

@@ -1,0 +1,40 @@
+.hero {
+  /* Assuming placeholder-hero-bg.jpg is in /public/images/ or just /public/ */
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/placeholder-hero-bg.jpg');
+  background-size: cover;
+  background-position: center;
+  padding: 6.25rem 1.5rem; /* 100px py-24, 24px px-6 */
+  text-align: center;
+  color: var(--text-color-white); /* Default text color for hero */
+  font-family: var(--font-inter, 'Inter', sans-serif);
+}
+
+.container {
+  max-width: 1140px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.headline {
+  font-size: 3rem; /* 48px */
+  font-weight: 600; /* Inter SemiBold */
+  color: var(--text-color-white);
+  margin-bottom: 1rem; /* 16px */
+}
+
+.subHeadline {
+  font-size: 1.25rem; /* 20px */
+  color: #E0E0E0; /* Light Gray for softer contrast as per plan */
+  margin-bottom: 2rem; /* 32px */
+  max-width: 44rem; /* approx 700px, max-w-2xl */
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.5;
+}
+
+.ctaButton {
+  /* Specific styles for the hero CTA if Button component's default variant needs override */
+  /* For example, if it needs larger padding or font size specifically in hero */
+  margin-top: 2rem; /* 32px */
+  /* The Button component itself will handle most styling via its 'primary' variant */
+}
