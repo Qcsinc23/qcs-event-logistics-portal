@@ -34,9 +34,11 @@ export default function RootLayout({
   return (
     <html lang="en">
         <head>
-          {/* Added Google Fonts and Font Awesome from user's _app.js example */}
-          <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Montserrat:wght@600;700&display=swap" rel="stylesheet" />
-          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+          {/* Google Fonts: Roboto & Montserrat (currently used by globals.css old :root) & Inter (new standard) */}
+          {/* The Inter font is already imported in globals.css, so this specific link for Inter might be redundant but harmless. */}
+          <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Montserrat:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+          {/* Material Symbols */}
+          <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
         </head>
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen`}
