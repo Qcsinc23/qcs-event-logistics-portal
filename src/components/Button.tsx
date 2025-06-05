@@ -2,31 +2,41 @@ import Link from 'next/link';
 import React from 'react';
 import styles from './Button.module.css'; // CSS Module
 
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  href?: string;
-  children: React.ReactNode;
+// Define separate props for Link and Button to avoid type conflicts
+type AnchorProps = Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'href'> & {
+  href: string; // href is mandatory for Link
   variant?: 'primary' | 'secondary' | 'textLink';
-  // Allow all other button attributes like onClick, type, etc.
-}
+  children: React.ReactNode;
+};
 
-const Button: React.FC<ButtonProps> = ({
-  href,
-  children,
-  variant = 'primary',
-  className = '', // Provide a default value for className
-  ...props
-}) => {
-  const buttonClasses = `${styles.button} ${styles[variant]} ${className}`.trim(); // Use trim to clean up potential extra spaces
+type BtnProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
+  href?: undefined; // href should not be present for button
+  variant?: 'primary' | 'secondary' | 'textLink';
+  children: React.ReactNode;
+};
 
-  if (href) {
+type ButtonProps = AnchorProps | BtnProps;
+
+const Button: React.FC<ButtonProps> = (props) => {
+  const { variant = 'primary', className = '', children } = props;
+  const buttonClasses = `${styles.button} ${styles[variant]} ${className}`.trim();
+
+  if (props.href) {
+    // Destructure props specific to Link/anchor, excluding button-specific ones
+    const { href, ...anchorSpecificProps } = props as AnchorProps;
+    // Further refine anchorSpecificProps if necessary to exclude any button-only HTML attributes
+    // For now, this is a common approach, but for strictness, one might filter out button-specific event handlers etc.
     return (
-      <Link href={href} className={buttonClasses} {...props}>
+      <Link href={href} className={buttonClasses} {...anchorSpecificProps}>
         {children}
       </Link>
     );
   }
+  
+  // Destructure props specific to button
+  const { ...buttonSpecificProps } = props as BtnProps;
   return (
-    <button className={buttonClasses} {...props}>
+    <button className={buttonClasses} {...buttonSpecificProps}>
       {children}
     </button>
   );
