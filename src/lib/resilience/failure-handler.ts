@@ -73,7 +73,8 @@ interface ResilienceOptions<T> {
   featureKey: string;
   operation: () => Promise<T>;
   fallback?: (error: Error) => Promise<T>; // Optional fallback function
-  // TODO: Add options for retry attempts, delays, etc. if needed later
+  retries?: number; // Number of retry attempts (default: 0)
+  retryDelayMs?: number; // Initial delay in milliseconds for exponential backoff (default: 100)
 }
 
 /**
@@ -84,8 +85,9 @@ interface ResilienceOptions<T> {
 export async function executeWithResilience<T>(
   options: ResilienceOptions<T>
 ): Promise<T> {
-  const { featureKey, operation, fallback } = options;
+  const { featureKey, operation, fallback, retries = 0, retryDelayMs = 100 } = options;
 
+  // Circuit Breaker check
   if (shouldFallback(featureKey)) {
     const fallbackError = new Error(
       `Operation for ${featureKey} is in fallback mode due to repeated failures.`
@@ -98,36 +100,47 @@ export async function executeWithResilience<T>(
       console.warn(`Resilience: Executing fallback for ${featureKey}.`);
       return fallback(fallbackError);
     }
-    // If no fallback provided, re-throw the error indicating fallback mode.
     throw fallbackError;
   }
 
-  try {
-    const result = await operation();
-    recordSuccess(featureKey);
-    return result;
-  } catch (error) {
-    console.error(`Resilience: Operation failed for ${featureKey}. Error:`, error);
-    const failureCount = recordFailure(featureKey);
-    Sentry.captureException(error, {
-      extra: { 
-        featureKey, 
-        failureCount,
-        message: `Operation failed for ${featureKey}` 
-      },
-      level: 'error',
-    });
+  let lastError: Error | unknown;
+  for (let i = 0; i <= retries; i++) {
+    try {
+      const result = await operation();
+      recordSuccess(featureKey);
+      return result;
+    } catch (error) {
+      lastError = error;
+      console.error(`Resilience: Operation failed for ${featureKey}. Attempt ${i + 1}/${retries + 1}. Error:`, error);
+      const failureCount = recordFailure(featureKey);
+      Sentry.captureException(error, {
+        extra: {
+          featureKey,
+          failureCount,
+          attempt: i + 1,
+          message: `Operation failed for ${featureKey}`
+        },
+        level: 'error',
+      });
 
-    // If this failure causes a fallback state, and a fallback function exists, execute it.
-    if (failureCount >= MAX_CONSECUTIVE_FAILURES && fallback) {
-      if (shouldFallback(featureKey)) { // Re-check to ensure it's still in fallback state (e.g. cooldown not passed during this execution)
-        console.warn(`Resilience: Max failures reached for ${featureKey}. Executing fallback immediately.`);
-        return fallback(error instanceof Error ? error : new Error(String(error)));
+      if (i < retries) {
+        const delay = retryDelayMs * Math.pow(2, i); // Exponential backoff
+        console.log(`Resilience: Retrying ${featureKey} in ${delay}ms...`);
+        await new Promise(resolve => setTimeout(resolve, delay));
+      } else {
+        // Max retries reached, check if fallback should be triggered
+        if (failureCount >= MAX_CONSECUTIVE_FAILURES && fallback) {
+          if (shouldFallback(featureKey)) { // Re-check to ensure it's still in fallback state
+            console.warn(`Resilience: Max failures reached for ${featureKey}. Executing fallback immediately.`);
+            return fallback(lastError instanceof Error ? lastError : new Error(String(lastError)));
+          }
+        }
       }
     }
-    // Otherwise, or if no fallback, re-throw the original error.
-    throw error;
   }
+
+  // If we reach here, all retries failed and no fallback was executed or provided
+  throw lastError instanceof Error ? lastError : new Error(String(lastError));
 }
 
 // Example usage (conceptual):

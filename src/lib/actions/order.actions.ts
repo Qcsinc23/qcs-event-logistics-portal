@@ -3,6 +3,7 @@
 import { z } from 'zod';
 import { auth } from '@clerk/nextjs/server';
 import { prisma } from '@/lib/prisma';
+import { getClientCompanyIdForUser } from '@/lib/auth';
 import { executeWithResilience } from '@/lib/resilience/failure-handler';
 import { logAuditEvent } from '@/lib/audit';
 import { sendEmail, getOrderConfirmationHtml, getCriticalFailureAlertHtml } from '@/lib/email';
@@ -60,33 +61,42 @@ export async function createQCSOrder(input: CreateOrderInput): Promise<CreateOrd
   const validatedData = validationResult.data;
 
   try {
-    // 1. Fetch QCSUserProfile and perform role check (if necessary for this action)
-    // For now, assuming any authenticated client can create an order.
-    // More complex role checks (e.g. if user belongs to a ClientCompany that can place orders for the endCustomer) might be needed.
+    // Get the clientCompanyId for the authenticated user
+    const authResult = await getClientCompanyIdForUser();
+    if (!authResult.success || !authResult.clientCompanyId) {
+      logAuditEvent({ action: 'CREATE_ORDER_FAIL_AUTH_COMPANY_LINK', userId, details: { authMessage: authResult.message } });
+      return { success: false, message: authResult.message || "User is not associated with a client company or not authorized." };
+    }
+    const userClientCompanyId = authResult.clientCompanyId;
+
+    // 1. Fetch QCSUserProfile (still needed for email later)
     const userProfile = await prisma.qCSUserProfile.findUnique({ where: { id: userId } });
     if (!userProfile) {
       logAuditEvent({ action: 'CREATE_ORDER_FAIL_USER_PROFILE_NOT_FOUND', userId });
       return { success: false, message: "User profile not found." };
     }
-    // Example role check (if only 'CLIENT' role can create orders, or specific permissions)
-    // if (userProfile.role !== 'CLIENT') {
-    //   logAuditEvent({ action: 'CREATE_ORDER_FAIL_UNAUTHORIZED_ROLE', userId, details: { role: userProfile.role } });
-    //   return { success: false, message: "User not authorized to create orders." };
-    // }
 
-
-    // 2. Validate EndCustomer existence
+    // 2. Validate EndCustomer existence AND ownership
     const endCustomer = await prisma.endCustomer.findUnique({
       where: { id: validatedData.endCustomerId },
-      include: { clientCompany: true } // To potentially check if user belongs to this client company
+      select: { id: true, name: true, email: true, phone: true, clientCompanyId: true } // Select only necessary fields
     });
 
     if (!endCustomer) {
       logAuditEvent({ action: 'CREATE_ORDER_FAIL_ENDCUSTOMER_NOT_FOUND', userId, targetId: validatedData.endCustomerId });
       return { success: false, message: `End customer with ID ${validatedData.endCustomerId} not found.` };
     }
-    
-    // TODO: Add logic to verify user's clientCompany matches endCustomer's clientCompany if applicable based on org structure
+
+    // Verify user's clientCompany matches endCustomer's clientCompany
+    if (endCustomer.clientCompanyId !== userClientCompanyId) {
+      logAuditEvent({
+        action: 'CREATE_ORDER_FAIL_ENDCUSTOMER_UNAUTHORIZED',
+        userId,
+        targetId: validatedData.endCustomerId,
+        details: { userClientCompanyId, endCustomerClientCompanyId: endCustomer.clientCompanyId }
+      });
+      return { success: false, message: "You are not authorized to create orders for this end customer." };
+    }
 
     // Generate a unique order number (simple example, could be more robust)
     const orderNumber = `QCS-${Date.now()}-${Math.random().toString(36).substring(2, 7).toUpperCase()}`;

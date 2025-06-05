@@ -1,5 +1,6 @@
 import { currentUser } from '@clerk/nextjs/server';
 import { redirect } from 'next/navigation';
+import Link from 'next/link'; // Import Link
 
 export default async function DashboardPage() {
   const user = await currentUser();
@@ -10,26 +11,25 @@ export default async function DashboardPage() {
   }
 
   return (
-    <div>
+    <div className="text-text-dark-gray dark:text-dark-text-primary">
       <h1 className="text-2xl font-semibold mb-4">Dashboard</h1>
       <p className="mb-6 text-lg">Welcome, {user.firstName || user.emailAddresses[0]?.emailAddress || user.id}!</p>
       
-      {/* You can start building your dashboard content here. */}
-      <div className="p-4 border rounded-md bg-white shadow">
+      <div className="p-4 border dark:border-slate-700 rounded-md bg-white dark:bg-dark-surface shadow">
         <h2 className="text-xl font-medium mb-3">Portal Home</h2>
-        <p className="text-gray-700">
+        <p className="text-gray-700 dark:text-dark-text-secondary">
           This is your main dashboard area. Future updates will include order summaries, quick actions, and more.
         </p>
-        {/* Example placeholder for future content */}
-        {/*
-        <div className="mt-4">
-          <h3 className="text-lg font-medium">Quick Links</h3>
-          <ul className="list-disc list-inside mt-2">
-            <li><a href="/orders" className="text-blue-600 hover:underline">View Orders</a></li>
-            <li><a href="/profile" className="text-blue-600 hover:underline">Manage Profile</a></li>
+        
+        <div className="mt-6">
+          <h3 className="text-lg font-medium mb-2">Quick Links</h3>
+          <ul className="space-y-2">
+            <li><Link href="/(portal)/orders/create" className="text-indigo-600 dark:text-indigo-400 hover:underline">Create New Order</Link></li>
+            <li><Link href="/(portal)/end-customers" className="text-indigo-600 dark:text-indigo-400 hover:underline">Manage End Customers</Link></li>
+            {/* <li><Link href="/(portal)/orders" className="text-indigo-600 dark:text-indigo-400 hover:underline">View All Orders</Link></li> */}
+            {/* <li><Link href="/user-profile" className="text-indigo-600 dark:text-indigo-400 hover:underline">Manage Your Profile</Link></li> */}
           </ul>
         </div>
-        */}
       </div>
 
       {/* Placeholder for QCSUserProfile data if synced */}

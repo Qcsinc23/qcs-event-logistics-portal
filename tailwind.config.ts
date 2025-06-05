@@ -1,6 +1,7 @@
 import type { Config } from 'tailwindcss'
 
 const config: Config = {
+  darkMode: 'class', // Enable class-based dark mode
   content: [
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
@@ -17,6 +18,13 @@ const config: Config = {
         'text-medium-gray': '#555555',
         'text-white': '#FFFFFF',
         'accent-light-cool-gray': '#D0DDE8',
+        // Dark mode palette (example)
+        'dark-background': '#1a202c', // Example: Dark Gray
+        'dark-surface': '#2d3748',    // Example: Slightly Lighter Dark Gray
+        'dark-text-primary': '#e2e8f0', // Example: Light Gray for text
+        'dark-text-secondary': '#a0aec0', // Example: Medium Gray for secondary text
+        'dark-primary-action': '#00A99D', // Example: Brighter Teal for dark mode
+        'dark-secondary-action': '#FFD700', // Example: Brighter Gold for dark mode
       },
       fontFamily: {
         inter: ['Inter', 'sans-serif'],

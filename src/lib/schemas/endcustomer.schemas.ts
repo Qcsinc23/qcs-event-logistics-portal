@@ -3,11 +3,11 @@ import { z } from 'zod';
 // Zod schema for creating an EndCustomer
 export const CreateEndCustomerSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters long."),
-  email: z.string().email("Invalid email address.").optional().or(z.literal('')), // Optional but must be valid if provided
+  email: z.string().email("Invalid email address.").optional().or(z.literal('')).nullable(), // Optional, can be empty string or null
   phone: z.string().optional(),
   address: z.string().optional(),
   // clientCompanyId will be derived from the authenticated user's profile
-  rateCardId: z.string().cuid("Invalid Rate Card ID.").optional(), // Assuming CUID for RateCard IDs
+  rateCardId: z.string().cuid("Invalid Rate Card ID.").optional().or(z.literal('')).nullable(), // Optional, can be empty string or null
   billingVisibility: z.boolean(), 
 });
 

@@ -37,7 +37,7 @@ export async function sendEmail(options: EmailOptions): Promise<{ success: boole
       to: options.to,
       subject: options.subject,
       html: options.html,
-      text: options.text,
+      text: options.text || options.html.replace(/<[^>]*>?/gm, ''), // Generate text from HTML if not provided
       // cc: options.cc,
       // bcc: options.bcc,
       // reply_to: options.reply_to,
