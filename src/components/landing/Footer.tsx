@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import React from 'react';
 import styles from './Footer.module.css'; // Import CSS Module
-// import { FaFacebookF, FaTwitter, FaLinkedinIn, FaInstagram } from 'react-icons/fa'; // Example if using react-icons for social icons
+import { FaFacebookF, FaTwitter, FaLinkedinIn, FaInstagram } from 'react-icons/fa'; // Example if using react-icons for social icons
 
 interface FooterProps {}
 
@@ -37,17 +37,10 @@ const Footer: React.FC<FooterProps> = () => {
           <div className={styles.column}>
             <h4 className={styles.columnTitle}>Connect With Us</h4>
             <div className={styles.socialLinksContainer}>
-              {/* Placeholder text links, replace with actual icons/links */}
-              <a href="#" aria-label="Facebook" className={styles.socialLink}>FB</a>
-              <a href="#" aria-label="Twitter" className={styles.socialLink}>TW</a>
-              <a href="#" aria-label="LinkedIn" className={styles.socialLink}>LI</a>
-              <a href="#" aria-label="Instagram" className={styles.socialLink}>IG</a>
-              {/* Example with react-icons:
-              <a href="#" aria-label="Facebook" className={styles.socialLink}><FaFacebookF /></a>
-              <a href="#" aria-label="Twitter" className={styles.socialLink}><FaTwitter /></a>
-              <a href="#" aria-label="LinkedIn" className={styles.socialLink}><FaLinkedinIn /></a>
-              <a href="#" aria-label="Instagram" className={styles.socialLink}><FaInstagram /></a>
-              */}
+              <a href="https://facebook.com/quietcraftsolutions" aria-label="Facebook" className={styles.socialLink}><FaFacebookF /></a>
+              <a href="https://twitter.com/quietcraftsolutions" aria-label="Twitter" className={styles.socialLink}><FaTwitter /></a>
+              <a href="https://linkedin.com/company/quietcraftsolutions" aria-label="LinkedIn" className={styles.socialLink}><FaLinkedinIn /></a>
+              <a href="https://instagram.com/quietcraftsolutions" aria-label="Instagram" className={styles.socialLink}><FaInstagram /></a>
             </div>
           </div>
         </div>
