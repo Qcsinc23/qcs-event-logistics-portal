@@ -33,6 +33,11 @@
   font-weight: 400; /* Inter Regular, lighter */
 }
 
+.logoImage {
+  height: 40px; /* Adjust as needed */
+  width: auto;
+}
+
 .nav {
   /* hidden md:block equivalent handled by media query or by not rendering on mobile if a burger menu is used */
 }

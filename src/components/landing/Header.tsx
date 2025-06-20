@@ -14,8 +14,9 @@ const Header: React.FC<HeaderProps> = () => {
     <header className={styles.header}>
       <div className={styles.container}>
         <Link href="/" passHref className={styles.logoLink}>
-          <span className="sr-only">Quiet Craft Solutions Inc.</span>
-          <img src="/logo.png" alt="Quiet Craft Solutions Inc. Logo" className={styles.logoImage} />
+          <span className={styles.logoText}>
+            Quiet Craft Solutions <span className={styles.logoTextInc}>Inc.</span>
+          </span>
         </Link>
         
         {/* Desktop Navigation */}
