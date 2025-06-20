@@ -32,9 +32,9 @@ const Header: React.FC<HeaderProps> = () => {
         <div className={styles.ctaContainer}>
           <Button href="/#quote" variant="secondary">Get a Quote</Button>
           {/* Assuming /sign-in and /sign-up are handled by Clerk or dedicated pages */}
-          <Button href="/sign-in" variant="textLink" className={styles.signInLink}>Sign In</Button>
-          <Button href="/sign-up" variant="secondary">Sign Up</Button>
-          <Button href="/dashboard" variant="primary">Client Portal</Button>
+          <Link href="/sign-in" className={`${styles.button} ${styles.textLink} ${styles.signInLink}`}>Sign In</Link>
+          <Link href="/sign-up" className={`${styles.button} ${styles.secondary}`}>Sign Up</Link>
+          <Link href="/dashboard" className={`${styles.button} ${styles.primary}`}>Client Portal</Link>
         </div>
 
         {/* Mobile Menu Button (conceptual) */}
