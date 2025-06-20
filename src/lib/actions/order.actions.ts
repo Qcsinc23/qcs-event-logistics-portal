@@ -34,11 +34,6 @@ export const CreateOrderSchema = z.object({
   newCustomerPhone: z.string().optional(),
   newCustomerAddress: z.string().optional(),
   saveNewCustomer: z.boolean().optional(),
-}).refine(data => {
-    return !!data.endCustomerId || !!data.newCustomerName;
-}, {
-    message: "Please select an existing customer or create a new one.",
-    path: ["endCustomerId"],
 });
 
 export type CreateOrderInput = z.infer<typeof CreateOrderSchema>;
@@ -70,6 +65,10 @@ export async function createQCSOrder(input: CreateOrderInput): Promise<CreateOrd
   }
 
   const validatedData = validationResult.data;
+
+  if (!validatedData.endCustomerId && !validatedData.newCustomerName) {
+    return { success: false, message: "Please select an existing customer or create a new one." };
+  }
 
   try {
     // Get the clientCompanyId for the authenticated user
