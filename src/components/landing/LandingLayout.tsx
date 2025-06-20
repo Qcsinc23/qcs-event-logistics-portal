@@ -26,9 +26,9 @@ const LandingLayout: React.FC<LandingLayoutProps> = ({ children, pageTitle }) =>
         If this LandingLayout were a top-level layout.tsx for a route group, it could export metadata.
         Since it's a component, page-specific metadata should be in the actual page.tsx that uses this layout.
       */}
-      <Header companyName={companyName} />
+      <Header />
       <main>{children}</main>
-      <Footer companyName={companyName} />
+      <Footer />
     </>
   );
 };
