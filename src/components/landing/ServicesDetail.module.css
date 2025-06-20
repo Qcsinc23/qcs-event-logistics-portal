@@ -1,0 +1,47 @@
+.servicesDetail {
+  padding: 4rem 1rem;
+  background-color: #ffffff;
+  text-align: center;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.sectionTitle {
+  font-size: 2.25rem;
+  font-weight: bold;
+  margin-bottom: 2.5rem;
+}
+
+.servicesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  text-align: left;
+}
+
+.serviceCard {
+  background-color: #f9fafb;
+  padding: 2rem;
+  border-radius: 0.5rem;
+  border: 1px solid #e5e7eb;
+}
+
+.serviceTitle {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+}
+
+.serviceIcon {
+  margin-right: 0.75rem;
+  color: #4f46e5;
+}
+
+.serviceText {
+  color: #6b7280;
+}

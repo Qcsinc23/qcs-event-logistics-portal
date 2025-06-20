@@ -1,4 +1,5 @@
 import React from 'react';
+import styles from './HowItWorks.module.css';
 
 const HowItWorks = () => {
   const steps = [
@@ -9,15 +10,15 @@ const HowItWorks = () => {
   ];
 
   return (
-    <section id="process" className="how-it-works">
-      <div className="container">
-        <h2>Our Simple Process</h2>
-        <div className="steps-container">
+    <section id="process" className={styles.howItWorks}>
+      <div className={styles.container}>
+        <h2 className={styles.sectionTitle}>Our Simple Process</h2>
+        <div className={styles.stepsContainer}>
           {steps.map((step) => (
-            <div className="step-item" key={step.number}>
-              <div className="step-number">{step.number}</div>
-              <h3>{step.title}</h3>
-              <p>{step.text}</p>
+            <div className={styles.stepItem} key={step.number}>
+              <div className={styles.stepNumber}>{step.number}</div>
+              <h3 className={styles.stepTitle}>{step.title}</h3>
+              <p className={styles.stepText}>{step.text}</p>
             </div>
           ))}
         </div>

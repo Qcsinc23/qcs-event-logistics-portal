@@ -1,4 +1,5 @@
 import React from 'react';
+import styles from './Testimonials.module.css';
 
 const Testimonials = () => {
   const testimonials = [
@@ -8,15 +9,17 @@ const Testimonials = () => {
   ];
 
   return (
-    <section className="testimonials">
-      <div className="container">
-        <h2>What Our Clients Say</h2>
-        <div className="testimonial-slider">
+    <section className={styles.testimonials}>
+      <div className={styles.container}>
+        <h2 className={styles.sectionTitle}>What Our Clients Say</h2>
+        <div className={styles.testimonialSlider}>
           {testimonials.map((testimonial, index) => (
-            <div className="testimonial-item" key={index}>
-              <blockquote>{testimonial.quote}</blockquote>
-              <p className="author">{testimonial.author}</p>
-              <p className="company">{testimonial.company}</p>
+            <div className={styles.testimonialItem} key={index}>
+              <blockquote className={styles.quote}>"{testimonial.quote}"</blockquote>
+              <div>
+                <p className={styles.author}>{testimonial.author}</p>
+                <p className={styles.company}>{testimonial.company}</p>
+              </div>
             </div>
           ))}
         </div>
