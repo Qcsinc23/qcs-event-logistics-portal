@@ -102,51 +102,40 @@ export async function createEndCustomer(input: CreateEndCustomerInput): Promise<
   }
 }
 
-export async function getEndCustomersForClient(): Promise<{ success: boolean; endCustomers?: EndCustomer[]; message?: string; }> {
-  const { userId } = await auth();
-  if (!userId) {
-    logAuditEvent({ action: 'GET_ENDCUSTOMERS_ATTEMPT_FAIL_UNAUTHENTICATED' });
-    return { success: false, message: "Authentication required." };
-  }
-
-  const authResult = await getClientCompanyIdForUser();
-  if (!authResult.success || !authResult.clientCompanyId) {
-    return { success: false, message: authResult.message || "Authentication or authorization failed." };
-  }
-  const clientCompanyId = authResult.clientCompanyId;
-
+export async function getEndCustomersForClient() {
   try {
-    const endCustomers = await executeWithResilience({
-      featureKey: 'PRISMA_GET_ENDCUSTOMERS',
-      operation: async () => {
-        return prisma.endCustomer.findMany({
-          where: { clientCompanyId: clientCompanyId },
-          orderBy: { name: 'asc' }, // Or by createdAt, etc.
-        });
-      },
-      fallback: async (error: Error) => {
-        logAuditEvent({
-          action: 'GET_ENDCUSTOMERS_FAIL_PRISMA',
-          userId,
-          details: { error: error.message, clientCompanyId }
-        });
-        Sentry.captureException(error, { tags: { operation: 'PRISMA_GET_ENDCUSTOMERS_FALLBACK' } });
-        throw new Error("Database operation failed to fetch end customers.");
-      }
-    });
-    
-    logAuditEvent({ action: 'GET_ENDCUSTOMERS_SUCCESS', userId, details: { clientCompanyId, count: endCustomers.length } });
-    return { success: true, endCustomers };
+    const { userId } = await auth();
+    if (!userId) {
+      throw new Error("You must be signed in to perform this action.");
+    }
 
-  } catch (error: any) {
-    console.error("Error fetching end customers:", error);
-    Sentry.captureException(error, { extra: { userId } });
-    logAuditEvent({
-      action: 'GET_ENDCUSTOMERS_FAIL_UNHANDLED',
-      userId,
-      details: { error: error.message }
+    const userProfile = await prisma.qCSUserProfile.findUnique({
+      where: { id: userId },
+      include: { clientCompany: true },
     });
-    return { success: false, message: error.message || "An unexpected error occurred." };
+
+    if (!userProfile?.clientCompany) {
+      // This case might happen for admins or users not linked to a company
+      return [];
+    }
+
+    const endCustomers = await prisma.endCustomer.findMany({
+      where: { clientCompanyId: userProfile.clientCompany.id },
+      select: {
+        id: true,
+        name: true,
+        address: true, // Include address for pre-filling
+      },
+      orderBy: {
+        name: 'asc',
+      },
+    });
+
+    return endCustomers;
+  } catch (error) {
+    console.error("Error fetching end customers:", error);
+    // In a real app, you might want to handle this more gracefully
+    return [];
   }
 }
 
@@ -308,3 +297,4 @@ export async function getEndCustomerById(id: string): Promise<{ success: boolean
     return { success: false, message: error.message || "An unexpected error occurred." };
   }
 }
+

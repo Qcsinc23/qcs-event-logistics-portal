@@ -24,21 +24,7 @@ const EndCustomerCard = ({ customer }: { customer: EndCustomer }) => {
 };
 
 export default async function EndCustomersPage() {
-  const result = await getEndCustomersForClient();
-
-  if (!result.success || !result.endCustomers) {
-    return (
-      <div className="container mx-auto px-4 py-8 ">
-        <h1 className="text-3xl font-bold mb-6 text-gray-800 dark:text-dark-text-primary">Manage End Customers</h1>
-        <div className="bg-red-100 border border-red-400 text-red-700 dark:bg-red-900 dark:border-red-700 dark:text-red-300 px-4 py-3 rounded relative" role="alert">
-          <strong className="font-bold">Error: </strong>
-          <span className="block sm:inline">{result.message || "Could not load end customers."}</span>
-        </div>
-      </div>
-    );
-  }
-
-  const { endCustomers } = result;
+  const endCustomers = await getEndCustomersForClient();
 
   return (
     <div className="container mx-auto px-4 py-8">
