@@ -54,7 +54,7 @@ export default async function EndCustomersPage() {
       {endCustomers.length === 0 ? (
         <div className="text-center py-10 bg-white dark:bg-dark-surface shadow-md rounded-lg">
           <p className="text-gray-500 dark:text-dark-text-secondary text-lg">No end customers found.</p>
-          <p className="text-gray-400 dark:text-gray-500 mt-2">Click the button above to add your first end customer.</p>
+          <p className="text-slate-800 dark:text-slate-400 mt-2">Click the button above to add your first end customer.</p>
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

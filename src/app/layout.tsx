@@ -18,8 +18,20 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "QCS Event Logistics Portal",
-  description: "Quiet Craft Solutions Inc. Client Portal",
+  title: "Quiet Craft Solutions Inc. — Veteran-Owned Event Logistics",
+  description: "Secure, on-time courier & logistics services for corporate events across NJ, NY & CT. SDVOSB certified.",
+  metadataBase: new URL("https://quietcrafting.com"),
+  openGraph: {
+    type: "website",
+    title: "Quiet Craft Solutions Inc.",
+    description: "Veteran-owned event logistics you can trust.",
+    images: [{
+      url: "https://quietcrafting.com/og-cover.jpg",
+    }],
+  },
+  alternates: {
+    canonical: '/',
+  },
 };
 
 export default function RootLayout({
