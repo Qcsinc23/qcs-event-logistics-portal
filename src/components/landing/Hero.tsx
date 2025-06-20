@@ -19,17 +19,6 @@ const Hero = () => {
           </Button>
         </div>
         <div className={styles.imageContainer}>
-          <picture>
-            <source type="image/avif" srcSet="https://via.placeholder.com/800x600.avif 1x, https://via.placeholder.com/1600x1200.avif 2x" />
-            <source type="image/webp" srcSet="https://via.placeholder.com/800x600.webp 1x, https://via.placeholder.com/1600x1200.webp 2x" />
-            <img
-              loading="lazy"
-              decoding="async"
-              src="https://via.placeholder.com/800x600.jpg"
-              alt="Quiet Craft delivery van arriving at convention center loading dock at dawn"
-              className={styles.heroImage}
-            />
-          </picture>
         </div>
       </div>
     </section>
