@@ -1,6 +1,6 @@
 .hero {
   /* Assuming placeholder-hero-bg.jpg is in /public/images/ or just /public/ */
-  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/placeholder-hero-bg.jpg');
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://picsum.photos/seed/qcs-event-logistics/1920/1080'); /* Using a placeholder image */
   background-size: cover;
   background-position: center;
   padding: 6.25rem 1.5rem; /* 100px py-24, 24px px-6 */

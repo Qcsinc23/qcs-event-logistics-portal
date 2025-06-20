@@ -31,6 +31,23 @@ export default function RootLayout({
     <html lang="en" className={inter.className}> {/* Apply Inter font className to html tag */}
         <head>
           {/* Font links are removed as next/font handles Inter, and react-icons will be used for icons */}
+          <script type="application/ld+json">
+            {`
+              {
+                "@context":"https://schema.org",
+                "@type":"LocalBusiness",
+                "name":"Quiet Craft Solutions Inc.",
+                "address":{
+                  "@type":"PostalAddress",
+                  "streetAddress":"165 Passaic Ave #203",
+                  "addressLocality":"Fairfield",
+                  "addressRegion":"NJ",
+                  "postalCode":"07004"
+                },
+                "telephone":"+1-973-415-9532"
+              }
+            `}
+          </script>
         </head>
         <body className="antialiased"> {/* Removed Geist font variables and other classes, base styles in globals.css */}
           <ClerkProvider>

@@ -4,11 +4,9 @@ import Link from 'next/link';
 import Button from '../Button'; // Import the new Button component
 import styles from './Header.module.css'; // Import CSS Module
 
-interface HeaderProps {
-  companyName: string; // This prop might become redundant if the name is hardcoded as per design
-}
+interface HeaderProps {}
 
-const Header: React.FC<HeaderProps> = ({ companyName }) => {
+const Header: React.FC<HeaderProps> = () => {
   // For mobile menu state, if implemented
   // const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 

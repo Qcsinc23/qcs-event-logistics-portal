@@ -5,18 +5,16 @@ import React from 'react';
 import styles from './Footer.module.css'; // Import CSS Module
 // import { FaFacebookF, FaTwitter, FaLinkedinIn, FaInstagram } from 'react-icons/fa'; // Example if using react-icons for social icons
 
-interface FooterProps {
-  companyName: string;
-}
+interface FooterProps {}
 
-const Footer: React.FC<FooterProps> = ({ companyName }) => {
+const Footer: React.FC<FooterProps> = () => {
   const currentYear = new Date().getFullYear();
   return (
     <footer id="contact" className={styles.footer}>
       <div className={styles.container}>
         <div className={styles.contentGrid}>
           <div className={styles.column}>
-            <h4 className={styles.columnTitle}>{companyName}</h4>
+            <h4 className={styles.columnTitle}>Quiet Craft Solutions Inc.</h4>
             <p className={styles.companyDescription}>Ensuring seamless delivery for your events. Your trusted partner in event logistics, dedicated to precision, reliability, and success.</p>
           </div>
           <div className={styles.column}>
@@ -30,12 +28,11 @@ const Footer: React.FC<FooterProps> = ({ companyName }) => {
           </div>
           <div className={styles.column}>
             <h4 className={styles.columnTitle}>Contact Us</h4>
-            <p className={styles.contactInfo}>
-              300 Beech St<br />
-              Teaneck, NJ 07666<br />
-              Email: <a href="mailto:sales@quietcraftsolutions.com" className={styles.contactLink}>sales@quietcraftsolutions.com</a><br />
-              Phone: <a href="tel:+12012490929" className={styles.contactLink}>(201) 249-0929</a>
-            </p>
+            <address className={styles.contactInfo}>
+              <strong>Quiet Craft Solutions Inc.</strong><br/>
+              165 Passaic Ave #203, Fairfield, NJ 07004<br/>
+              <a href="tel:+19734159532">(973) 415-9532</a>
+            </address>
           </div>
           <div className={styles.column}>
             <h4 className={styles.columnTitle}>Connect With Us</h4>
@@ -55,7 +52,7 @@ const Footer: React.FC<FooterProps> = ({ companyName }) => {
           </div>
         </div>
         <div className={styles.bottomBar}>
-          <p className={styles.copyrightText}>&copy; {currentYear} {companyName}. All Rights Reserved.</p>
+          <p className={styles.copyrightText}>&copy; {currentYear} Quiet Craft Solutions Inc.. All Rights Reserved.</p>
         </div>
       </div>
     </footer>
